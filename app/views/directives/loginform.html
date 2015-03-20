@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-sm-6">
+        <div class="alert alert-danger" role="alert" ng-if="errors && errors.length > 0">
+            <div ng-repeat="error in errors">{{error}}</div>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Email" ng-model="form.email">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password" ng-model="form.password">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default" ng-click="submit()">Login</button>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <button type="submit" class="btn btn-default" ng-disabled="" ng-click="loginFB()" style="background-color: #4E69A2;color: #ffffff">Login with Facebook</button>
+    </div>
+</div>

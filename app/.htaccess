@@ -212,6 +212,8 @@ AddDefaultCharset utf-8
     Options +FollowSymlinks
   # Options +SymLinksIfOwnerMatch
     RewriteEngine On
+    
+    RewriteRule ^[^\\.]*$ /index.html [L]
   # RewriteBase /
 </IfModule>
 
