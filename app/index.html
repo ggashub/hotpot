@@ -8,6 +8,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -21,28 +22,31 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
+    <div class="header" ng-controller="HeaderCtrl">
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
-          <div class="navbar-header">
-
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
-            <a class="navbar-brand" href="#/">hotpot</a>
-          </div>
-
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="/">Home</a></li>
-              <li><a ng-href="/about">About</a></li>
-              <li><a ng-href="/login">Login</a></li>
-            </ul>
+          <div class="row">
+            <div class="col-md-6"><a class="navbar-brand" href="/"><strong>HOTPOT</strong></a></div>
+            <div class="col-md-6 auth-menu" ng-class="{ready: isAuthMenuReady}">
+              <div class="btn-group" dropdown ng-if="isAuthenticated">
+                <button type="button" class="btn btn-primary">
+                  <img ng-if="user.profile.photoUrl" class="profile-img-sm" src="{{user.profile.photoUrl}}">
+                  <img ng-if="!user.profile.photoUrl" class="profile-img-sm" src="/images/no-photo.png">
+                  {{user.profile.firstName}} {{user.profile.lastName}}
+                </button>
+                <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+                  <span class="caret"></span>
+                  <span class="sr-only">Split button!</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="/about">About</a></li>
+                  <li><a href="#">Settings</a></li>
+                  <li class="divider"></li>
+                  <li><a href ng-click="logout()">Logout</a></li>
+                </ul>
+              </div>
+              <a href="/login" ng-if="!isAuthenticated">Login</a>
+            </div>
           </div>
         </div>
       </div>
@@ -54,12 +58,13 @@
 
     <div class="footer">
       <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+        <p>Please contact the Hotpot team for the help.</p>
       </div>
     </div>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <!--
      <script>
        !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
        (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
@@ -69,6 +74,7 @@
        ga('create', 'UA-XXXXX-X');
        ga('send', 'pageview');
     </script>
+    -->
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -85,16 +91,22 @@
     <script src="bower_components/lodash/dist/lodash.compat.js"></script>
     <script src="bower_components/restangular/dist/restangular.js"></script>
     <script src="bower_components/angular-facebook/lib/angular-facebook.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/header.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/directives/loginform.js"></script>
         <script src="scripts/services/myauth.js"></script>
+        <script src="scripts/services/myreference.js"></script>
+        <script src="scripts/services/myconfig.js"></script>
         <!-- endbuild -->
 </body>
 </html>

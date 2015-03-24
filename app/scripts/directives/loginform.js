@@ -7,11 +7,11 @@
  * # loginForm
  */
 angular.module('hotpotApp')
-  .directive('loginForm', function ($window, myAuth, Facebook) {
+  .directive('loginForm', function ($window, $timeout, myAuth, Facebook) {
     return {
       templateUrl: 'views/directives/loginform.html',
       restrict: 'E',
-      link: function (scope) {
+      link: function (scope, attrs) {
         scope.form = {};
         scope.submit = function() {
           scope.errors = [];
@@ -29,19 +29,22 @@ angular.module('hotpotApp')
           }
 
           myAuth.login(scope.form.email, scope.form.password).then(function(){
-            //$window.location.href = attrs.redirect;
+            //console.log('login redirect');
+            $timeout(function() {
+              $window.location.href = attrs.redirect ? attrs.redirect : '/';
+            }, 100);
           }, function(res) {
+            console.log(res);
             if (res.data && res.data.errors) {
               scope.errors = res.data.errors;
             } else {
-              console.log(res);
+              scope.errors.push('Server error.');
             }
           });
         };
         scope.loginFB = function() {
           Facebook.login(function(response) {
             if (response.status === 'connected') {
-              myAuth.loginFB(response.authResponse);
             }
           }, {scope: 'email'});
         };

@@ -16,9 +16,12 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ngStorage',
+    'ui.bootstrap',
     'ui.router',
     'restangular',
-    'facebook'
+    'facebook',
+    'xeditable'
   ])
   .config(function ($locationProvider, $stateProvider, RestangularProvider, FacebookProvider) {
     //Routing
@@ -28,15 +31,24 @@ angular
         templateUrl: 'views/base.html',
         abstract: true,
         resolve: {
-          session: function(myAuth) {
-            return myAuth.init();
+          myAuthUser: function(myAuth) {
+            return myAuth.getAuthUser();
           }
         }
       })
       .state('main', {
         url: '/',
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        resolve: {
+          myAuthUser: function(myAuth) {
+            if (myAuth.isAuthenticated()) {
+              return myAuth.getAuthUser();
+            } else {
+              return;
+            }
+          }
+        }
       })
       .state('base.about', {
         url: '/about',
@@ -64,18 +76,26 @@ angular
     //FB
     FacebookProvider.init('657824701014060');
   })
-  .run(function($rootScope, $location, $state, $cookies, myAuth) {
-
-    console.log($cookies);
+  .run(function($rootScope, $location, $state, myAuth, editableOptions) {
     $rootScope.$on('$stateChangeStart', function(event, toState) {
+      //Xeditable
+      editableOptions.theme = 'bs3';
+
       //Any route that requires login must extend base
-      if (!toState.name.match(/^base\./)) {
+      if (toState.name !== 'login' && !toState.name.match(/^base\./)) {
         return;
       }
 
-      if (!myAuth.isAuthenticated()) {
-        event.preventDefault();
-        $state.go('login', {'redirect': $location.absUrl()});
+      if (myAuth.isAuthenticated()) {
+        if (toState.name === 'login') {
+          event.preventDefault();
+          $state.go('main');
+        }
+      } else {
+        if (toState.name !== 'login') {
+          event.preventDefault();
+          $state.go('login', {'redirect': $location.absUrl()});
+        }
       }
     });
   });
