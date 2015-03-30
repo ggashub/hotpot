@@ -19,11 +19,11 @@ angular
     'ngStorage',
     'ui.bootstrap',
     'ui.router',
+    'clientConfig',
     'restangular',
-    'facebook',
     'xeditable'
   ])
-  .config(function ($locationProvider, $stateProvider, RestangularProvider, FacebookProvider) {
+  .config(function ($locationProvider, $stateProvider, RestangularProvider, clientConfig) {
     //Routing
     $stateProvider
       .state('base', {
@@ -63,18 +63,18 @@ angular
 
     $locationProvider.html5Mode(true);
 
-      //Set up api client
-      RestangularProvider.setBaseUrl('http://localhost:1337');
-      RestangularProvider.setDefaultHeaders({
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest'
-      });
-      RestangularProvider.setDefaultHttpFields({
-        withCredentials: true
-      });
+    //Set up api client
+    RestangularProvider.setBaseUrl(clientConfig.api.baseUrl);
+    RestangularProvider.setDefaultHeaders({
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest'
+    });
+    RestangularProvider.setDefaultHttpFields({
+      withCredentials: true
+    });
 
     //FB
-    FacebookProvider.init('657824701014060');
+    //FacebookProvider.init('657824701014060');
   })
   .run(function($rootScope, $location, $state, myAuth, editableOptions) {
     $rootScope.$on('$stateChangeStart', function(event, toState) {

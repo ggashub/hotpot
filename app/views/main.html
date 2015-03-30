@@ -14,14 +14,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="ref in references">
+      <tr ng-repeat="(refIndex, ref) in references">
         <td ng-repeat="header in headers" ng-switch="header">
           <span ng-switch-when="color">{{ref[header]}}</span>
           <span ng-switch-when="name">{{ref[header]}}</span>
           <div ng-switch-default class="row">
             <div class="col-sm-12" ng-repeat="value in ref[header] track by $index">
-              <span editable-text="value" blur="cancel" buttons="no" onbeforesave="updateReference($data, header)">{{value}}</span>
+              <span editable-text="ref[header][$index]" blur="cancel" buttons="no" onaftersave="updateReference(refIndex)">{{value}}</span>
             </div>
+            <div class="col-sm-12"><span href editable-text="newRef" blur="cancel" buttons="no" onbeforesave="addReference($data, refIndex)">+</span></div>
           </div>
         </td>
       </tr>

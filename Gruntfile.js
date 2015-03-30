@@ -69,7 +69,8 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        //hostname: 'localhost',
+        hostname: '0.0.0.0',
         livereload: 35729
       },
       livereload: {
@@ -406,9 +407,33 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    //Configuration
+    ngconstant: {
+      options: {
+        name: 'clientConfig',
+        wrap: '"use strict";\n\n{%= __ngModule %}',
+        space: '  '
+      },
+      dev: {
+        options: {
+          dest: '<%= yeoman.app %>/scripts/clientConfig.js'
+        },
+        constants: {
+          clientConfig: grunt.file.readYAML('../config/client_dev.yml')
+        }
+      },
+      prod: {
+        options: {
+          dest: '<%= yeoman.dist %>/scripts/clientConfig.js'
+        },
+        constants: {
+          clientConfig: grunt.file.readYAML('../config/client.yml')
+        }
+      }
     }
   });
-
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -417,6 +442,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'ngconstant:dev',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -441,6 +467,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:prod',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',

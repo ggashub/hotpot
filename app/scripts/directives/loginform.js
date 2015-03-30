@@ -7,7 +7,7 @@
  * # loginForm
  */
 angular.module('hotpotApp')
-  .directive('loginForm', function ($window, $timeout, myAuth, Facebook) {
+  .directive('loginForm', function ($window, $timeout, myAuth) {
     return {
       templateUrl: 'views/directives/loginform.html',
       restrict: 'E',
@@ -42,12 +42,14 @@ angular.module('hotpotApp')
             }
           });
         };
+        /*
         scope.loginFB = function() {
           Facebook.login(function(response) {
             if (response.status === 'connected') {
             }
           }, {scope: 'email'});
         };
+        */
       }
     };
   });

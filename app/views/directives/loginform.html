@@ -1,5 +1,7 @@
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <form>
         <div class="alert alert-danger" role="alert" ng-if="errors && errors.length > 0">
             <div ng-repeat="error in errors">{{error}}</div>
         </div>
@@ -12,8 +14,7 @@
         <div class="form-group">
             <button type="submit" class="btn btn-default" ng-click="submit()">Login</button>
         </div>
+        </form>
     </div>
-    <div class="col-sm-4" style="text-align: right;">
-        <button type="submit" class="btn btn-default" ng-disabled="" ng-click="loginFB()" style="background-color: #4E69A2;color: #ffffff">Login with Facebook</button>
-    </div>
+    <div class="col-sm-3"></div>
 </div>

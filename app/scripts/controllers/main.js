@@ -15,9 +15,8 @@ angular.module('hotpotApp')
         $scope.references = references.plain();
         console.log($scope.references);
         $scope.headers = myConfig.headers;
-        $scope.updateReference = function($data) {
-          console.log($data);
-          //references[header]
+        $scope.updateReference = function(refIndex) {
+          references[refIndex].save();
         };
       });
     }
