@@ -11,6 +11,6 @@ angular.module('hotpotApp')
   .service('myConfig', function () {
 
     return {
-      headers: ['color', 'name', 'QPISlice', 'kbps', 'Y_psnr']
+      headers: ['menu', 'name', 'QPISlice', 'kbps', 'Y_psnr', 'U_psnr']
     };
   });

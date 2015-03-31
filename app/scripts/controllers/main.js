@@ -12,10 +12,18 @@ angular.module('hotpotApp')
     $scope.isAuthenticated = myAuth.isAuthenticated();
     if ($scope.isAuthenticated) {
       myReference.getReferences().then(function(references) {
-        $scope.references = references.plain();
-        console.log($scope.references);
         $scope.headers = myConfig.headers;
+        $scope.references = references.plain();
         $scope.updateReference = function(refIndex) {
+          references[refIndex].save();
+        };
+        $scope.addReferenceData = function($data, refIndex, header) {
+          if (!references[refIndex][header]) {
+            references[refIndex][header] = [];
+            $scope.references = references.plain();
+          }
+          references[refIndex][header].push($data);
+
           references[refIndex].save();
         };
       });
