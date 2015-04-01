@@ -25,7 +25,13 @@ body > .container {
   border-top: 1px solid #e5e5e5;
 }
 
-/* MY STYLE */
+.modal-backdrop {
+  height: 100%;
+}
+
+.alert {
+  margin-bottom: 0px;
+}
 
 $my-primary-font-color: #333;
 

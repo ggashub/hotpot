@@ -8,25 +8,20 @@
  * Controller of the hotpotApp
  */
 angular.module('hotpotApp')
-  .controller('MainCtrl', function ($scope, myAuth, myReference, myConfig) {
+  .controller('MainCtrl', function ($scope, myAuth, myReference, myPreference) {
     $scope.isAuthenticated = myAuth.isAuthenticated();
     if ($scope.isAuthenticated) {
+      $scope.headers = myPreference.headers;
       myReference.getReferences().then(function(references) {
-        $scope.headers = myConfig.headers;
-        $scope.references = references.plain();
-        $scope.updateReference = function(refIndex) {
-          references[refIndex].save();
-        };
-        $scope.addReferenceData = function($data, refIndex, header) {
-          if (!references[refIndex][header]) {
-            references[refIndex][header] = [];
-            $scope.references = references.plain();
-          }
-          references[refIndex][header].push($data);
-
-          references[refIndex].save();
-        };
+        $scope.references = references;
       });
+      $scope.updateReference = function(refIndex) {
+        myReference.updateReference(refIndex);
+      };
+      $scope.createReferenceData = function($data, refIndex, header) {
+        myReference.addReferenceData($data, refIndex, header);
+        myReference.updateReference(refIndex);
+      };
     }
   })
   .filter('capitalize', function() {

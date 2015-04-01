@@ -45,7 +45,7 @@ angular
             if (myAuth.isAuthenticated()) {
               return myAuth.getAuthUser();
             } else {
-              return;
+              return null;
             }
           }
         }
