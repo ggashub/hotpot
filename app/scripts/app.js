@@ -19,6 +19,7 @@ angular
     'ngStorage',
     'ui.bootstrap',
     'ui.router',
+    'ui.sortable',
     'clientConfig',
     'restangular',
     'xeditable'
@@ -41,9 +42,11 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
         resolve: {
-          myAuthUser: function(myAuth) {
+          references: function(myAuth, myReference) {
             if (myAuth.isAuthenticated()) {
-              return myAuth.getAuthUser();
+              return myAuth.getAuthUser().then(function(){
+                return myReference.getReferences();
+              });
             } else {
               return null;
             }

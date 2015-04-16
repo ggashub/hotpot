@@ -56,15 +56,32 @@ $my-primary-font-color: #333;
 
 .data-table {
   .row {
-    margin-left: -5px;
-    margin-right: -5px;
+    margin: -5px;
   }
-  .col-sm-12 {
+  .col-sm-6 {
+    padding: 0;
+  }
+  .col-sm-6:not(:last-child) {
+    border-right: 1px solid #DDD;
+  }
+  .data-cell {
     padding-left: 5px;
     padding-right: 5px;
+    position: relative;
   }
-  .col-sm-12:not(:last-child) {
+  .data-cell:not(:last-child) {
     border-bottom: 1px solid #DDD;
+  }
+  .data-cell-menu {
+    position: absolute;
+    right: 3px;
+    top: 5px;
+  }
+  .data-cell-menu .data-cell-delete {
+    color: $brand-danger;
+    font-size: 10px;
+    display: block;
+    cursor: pointer;
   }
   .editable-input {
     padding: 1px 5px;
@@ -78,4 +95,24 @@ $my-primary-font-color: #333;
 
 .editable-click {
   border-bottom: none;
+}
+
+.settings-dialog {
+  ul.header-list {
+    list-style: none outside none;
+    margin: 10px auto 30px;
+  }
+  ul.header-list li {
+    width: 100px;
+    padding: 5px 10px;
+    margin: 5px 0;
+    border: 2px solid #444;
+    border-radius: 5px;
+    background-color: #EA8A8A;
+
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    cursor: move;
+  }
 }

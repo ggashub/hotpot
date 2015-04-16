@@ -21,13 +21,32 @@
           </div>
           <span ng-switch-when="name">{{ref[header]}}</span>
           <div ng-switch-default class="row">
-            <div class="col-sm-12" ng-repeat="value in ref[header] track by $index">
-              <span editable-text="ref[header][$index]" blur="cancel" buttons="no" onaftersave="updateReference(refIndex)">{{value}}</span>
+            <div class="col-sm-6">
+              <div class="data-cell" ng-repeat="value in ref[header] track by $index">
+                <div class="data-cell-menu" show-on-hover>
+                  <span class="data-cell-delete glyphicon glyphicon-remove" ng-click="deleteReferenceData(refIndex, header, $index)"></span>
+                </div>
+                <span editable-text="ref[header][$index]" blur="cancel" buttons="no" onaftersave="updateReference(refIndex)">{{value}}</span>
+              </div>
+              <div class="data-cell">
+                <span href editable-text="newRefData" blur="cancel" buttons="no" onbeforesave="createReferenceData($data, refIndex, header)">+</span>
+              </div>
             </div>
-            <div class="col-sm-12"><span href editable-text="newRef" blur="cancel" buttons="no" onbeforesave="createReferenceData($data, refIndex, header)">+</span></div>
+            <div class="col-sm-6">
+              <div class="data-cell" ng-repeat="testValue in tests[ref.id][0][header] track by $index">
+                <div class="data-cell-menu" show-on-hover>
+                  <span class="data-cell-delete glyphicon glyphicon-remove" ng-click="deleteTestData(ref.id, header, $index)"></span>
+                </div>
+                <span editable-text="tests[ref.id][0][header][$index]" blur="cancel" buttons="no" onaftersave="updateTest(ref.id)">{{testValue}}</span>
+              </div>
+              <div class="data-cell">
+                <span href editable-text="newTestData" blur="cancel" buttons="no" onbeforesave="createTestData($data, ref.id, header)">+</span>
+              </div>
+            </div>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
+  <button class="btn btn-default" style="width: 100%;" ng-click="loadMore()">Load More</button>
 </div>

@@ -8,19 +8,40 @@
  * Controller of the hotpotApp
  */
 angular.module('hotpotApp')
-  .controller('MainCtrl', function ($scope, myAuth, myReference, myPreference) {
+  .controller('MainCtrl', function ($scope, myAuth, myReference) {
     $scope.isAuthenticated = myAuth.isAuthenticated();
     if ($scope.isAuthenticated) {
-      $scope.headers = myPreference.headers;
-      myReference.getReferences().then(function(references) {
-        $scope.references = references;
-      });
+      $scope.headers = myAuth.getSettings().headers;
+      $scope.references = myReference.references;
+      $scope.tests = myReference.tests;
+      $scope.showDelete = false;
       $scope.updateReference = function(refIndex) {
         myReference.updateReference(refIndex);
       };
-      $scope.createReferenceData = function($data, refIndex, header) {
-        myReference.addReferenceData($data, refIndex, header);
+      $scope.createReferenceData = function(data, refIndex, header) {
+        myReference.addReferenceData(data, refIndex, header);
         myReference.updateReference(refIndex);
+      };
+      $scope.deleteReferenceData = function(refIndex, header, refDataIndex) {
+        myReference.removeReferenceData(refIndex, header, refDataIndex);
+        myReference.updateReference(refIndex);
+      };
+      $scope.updateTest = function(refId) {
+        myReference.updateTest(refId);
+      };
+      $scope.createTestData = function($data, refId, header) {
+        myReference.addTestData($data, refId, header);
+        myReference.updateTest(refId);
+      };
+      $scope.deleteTestData = function(refId, header, testIndex) {
+        myReference.removeTestData(refId, header, testIndex);
+        myReference.updateTest(refId);
+      };
+      $scope.loadMore = function () {
+        myReference.getReferences().then(function() {
+          $scope.references = myReference.references;
+          $scope.tests = myReference.tests;
+        });
       };
     }
   })

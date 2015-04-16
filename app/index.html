@@ -29,12 +29,12 @@
             <div class="col-md-6"><a class="navbar-brand" href="/"><strong>HOTPOT</strong></a></div>
             <div class="col-md-6 auth-menu" ng-class="{ready: isAuthMenuReady}">
               <div class="btn-group" role="group" ng-if="isAuthenticated">
-                <button type="button" class="btn btn-default">Download</button>
-                <button type="button" class="btn btn-default" ng-click="createReference()">New Reference</button>
                 <button type="button" class="btn btn-default" ng-click="deleteReference()" ng-disabled="disableDelete()">Delete</button>
+                <button type="button" class="btn btn-default" ng-click="createReference()">New Reference</button>
+                <button type="button" class="btn btn-default" ng-click="changeSettings()">Settings</button>
               </div>
               <div class="btn-group" dropdown ng-if="isAuthenticated">
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="btn btn-primary" ng-click="changeMyProfile()">
                   <img ng-if="user.profile.photoUrl" class="profile-img-sm" src="{{user.profile.photoUrl}}">
                   <img ng-if="!user.profile.photoUrl" class="profile-img-sm" src="/images/no-photo.png">
                   {{user.profile.firstName}} {{user.profile.lastName}}
@@ -45,7 +45,6 @@
                 </button>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="/about">About</a></li>
-                  <li><a href="#">Settings</a></li>
                   <li class="divider"></li>
                   <li><a href ng-click="logout()">Logout</a></li>
                 </ul>
@@ -98,6 +97,8 @@
     <script src="bower_components/ngstorage/ngStorage.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="bower_components/angular-ui-sortable/sortable.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -109,9 +110,9 @@
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/directives/loginform.js"></script>
+        <script src="scripts/directives/showonhover.js"></script>
         <script src="scripts/services/myauth.js"></script>
         <script src="scripts/services/myreference.js"></script>
-        <script src="scripts/services/myconfig.js"></script>
         <script src="scripts/services/mymessage.js"></script>
         <script src="scripts/services/mydialog.js"></script>
         <!-- endbuild -->

@@ -22,6 +22,12 @@ angular.module('hotpotApp')
       $scope.createReference = function() {
         myDialog.createReference();
       };
+      $scope.changeSettings = function() {
+        myDialog.settings();
+      };
+      $scope.changeMyProfile = function() {
+        myDialog.changeProfile();
+      };
       $scope.disableDelete = function() {
         return myReference.getSelectedCount() > 0 ? false : true;
       };
