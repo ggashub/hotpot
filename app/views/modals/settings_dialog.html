@@ -8,11 +8,19 @@
         </div>
         <div class="form-group">
             <label>Fields:</label>
-            <ul class="header-list" ui-sortable ng-model="headers" class="">
-                <li ng-repeat="header in headers">{{ header }}</li>
-            </ul>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="header-list" ui-sortable="sortableOptions" ng-model="headers">
+                        <li class="app" ng-repeat="header in headers">{{ header }}</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="header-list" ui-sortable="sortableOptions" ng-model="otherHeaders">
+                        <li class="app" ng-repeat="header in otherHeaders">{{ header }}</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div>{{limits}}</div>
         <div class="form-group">
             <label>Number of results per-page:</label>
             <select class="form-control" ng-options="l.id as l.label for l in limitOptions" ng-model="limit">

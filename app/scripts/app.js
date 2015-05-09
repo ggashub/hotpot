@@ -17,12 +17,15 @@ angular
     'ngSanitize',
     'ngTouch',
     'ngStorage',
+    'ngImgCrop',
     'ui.bootstrap',
     'ui.router',
     'ui.sortable',
     'clientConfig',
     'restangular',
-    'xeditable'
+    'xeditable',
+    'angularFileUpload',
+    'webcam'
   ])
   .config(function ($locationProvider, $stateProvider, RestangularProvider, clientConfig) {
     //Routing
@@ -59,9 +62,14 @@ angular
         controller: 'AboutCtrl'
       })
       .state('login', {
-        url: '/login?redirect',
+        url: '/login?redirect&cfm',
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
+      })
+      .state('signup', {
+        url: '/signup',
+        templateUrl: 'views/signup.html',
+        controller: 'SignupCtrl'
       });
 
     $locationProvider.html5Mode(true);

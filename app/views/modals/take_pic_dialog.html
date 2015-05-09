@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h4 class="modal-title">Take Picture</h4>
+</div>
+<div class="modal-body">
+    <div class="alert alert-danger" ng-if="err">
+        {{err}}
+    </div>
+    <webcam placeholder="'/images/ajax-loader.gif'"
+            on-stream="onStream(stream)"
+            on-streaming="onSuccess()"
+            on-error="onError(err)"
+            channel="myChannel">
+    </webcam>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary" ng-click="makeShot()">Cheese</button>
+</div>

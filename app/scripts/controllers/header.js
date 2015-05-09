@@ -1,11 +1,16 @@
 'use strict';
 
 angular.module('hotpotApp')
-  .controller('HeaderCtrl', function ($scope, $q, myAuth, myReference, myDialog) {
+  .controller('HeaderCtrl', function ($scope, $rootScope, $q, myAuth, myReference, myDialog, clientConfig) {
     if (myAuth.isAuthenticated()) {
       $scope.isAuthenticated = true;
-      myAuth.getAuthUser().then(function(user) {
-        $scope.user = user;
+      myAuth.getAuthUser().then(function() {
+        if (!myAuth.user.profile.avatarThumbUrl) {
+          myAuth.user.profile.avatarThumbUrl = '/images/no-photo.png';
+        } else {
+          myAuth.user.profile.avatarThumbUrl = clientConfig.api.baseUrl + myAuth.user.profile.avatarThumbUrl;
+        }
+        $scope.user = myAuth.user;
       });
       $scope.logout = function() {
         myAuth.logout();
@@ -31,6 +36,10 @@ angular.module('hotpotApp')
       $scope.disableDelete = function() {
         return myReference.getSelectedCount() > 0 ? false : true;
       };
+      $rootScope.$on('profile:change', function(event, profile) {
+        profile.avatarThumbUrl = clientConfig.api.baseUrl + profile.avatarThumbUrl + '&t=' + new Date().getTime();
+        myAuth.user.profile = profile;
+      });
     }
     $scope.isAuthMenuReady = true;
   });

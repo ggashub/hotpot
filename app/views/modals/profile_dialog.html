@@ -6,9 +6,30 @@
         <div class="alert alert-danger" role="alert" ng-if="errors && errors.length > 0">
             <div ng-repeat="error in errors">{{error}}</div>
         </div>
-        <ul class="header-list" ui-sortable ng-model="headers" class="">
-            <li ng-repeat="header in headers">{{ header }}</li>
-        </ul>
+
+        <div class="form-group">
+            <label>Profile Image:
+                <button type="button" class="btn btn-primary btn-sm" ng-click="takePicture()">
+                    <span class="glyphicon glyphicon-camera"></span> Take Picture
+                </button>
+            </label>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="hint" ng-if="!myImage">Drag and drop your image here.</div>
+                    <div class="cropArea" ng-file-drop ng-model="files" drag-over-class="drag-over">
+                        <img-crop image="myImage" result-image="myCroppedImage" result-image-size="100"></img-crop>
+                    </div>
+                </div>
+                <div class="col-md-4 ">
+                    <div class="preview">
+                        <div class="image-wrapper">
+                            <img ng-if="myCroppedImage" ng-src="{{myCroppedImage}}" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary" ng-click="submit()">Save</button>

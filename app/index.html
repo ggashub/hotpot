@@ -9,6 +9,7 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
+    <link rel="stylesheet" href="bower_components/ngImgCrop/compile/minified/ng-img-crop.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -35,8 +36,7 @@
               </div>
               <div class="btn-group" dropdown ng-if="isAuthenticated">
                 <button type="button" class="btn btn-primary" ng-click="changeMyProfile()">
-                  <img ng-if="user.profile.photoUrl" class="profile-img-sm" src="{{user.profile.photoUrl}}">
-                  <img ng-if="!user.profile.photoUrl" class="profile-img-sm" src="/images/no-photo.png">
+                  <img class="profile-img-sm" ng-src="{{user.profile.avatarThumbUrl}}">
                   {{user.profile.firstName}} {{user.profile.lastName}}
                 </button>
                 <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
@@ -49,7 +49,9 @@
                   <li><a href ng-click="logout()">Logout</a></li>
                 </ul>
               </div>
-              <a href="/login" ng-if="!isAuthenticated">Login</a>
+              <div ng-if="!isAuthenticated">
+                <a href="/login" >Login</a> | <a href="/signup">Sign up</a>
+              </div>
             </div>
           </div>
         </div>
@@ -99,6 +101,9 @@
     <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
     <script src="bower_components/jquery-ui/jquery-ui.js"></script>
     <script src="bower_components/angular-ui-sortable/sortable.js"></script>
+    <script src="bower_components/ngImgCrop/compile/minified/ng-img-crop.js"></script>
+    <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
+    <script src="bower_components/webcam-directive/dist/webcam.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -109,6 +114,7 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/signup.js"></script>
         <script src="scripts/directives/loginform.js"></script>
         <script src="scripts/directives/showonhover.js"></script>
         <script src="scripts/services/myauth.js"></script>

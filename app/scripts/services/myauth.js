@@ -42,17 +42,18 @@ angular.module('hotpotApp')
                 },
                 user: me.user.id
               };
-              Restangular.all('preferences').post(me.user.preference).then(function(newPref){
+              return Restangular.all('preferences').post(me.user.preference).then(function(newPref){
                 me.preference = newPref;
                 if (newPref.id) {
                   Restangular.one('users', me.user.id).put({preference: newPref.id});
                 }
+                return me.user;
               });
             } else {
               me.preference = me.user.preference;
               delete me.user.preference;
+              return me.user;
             }
-            return me.user;
           });
         }, function(error) {
           console.log(error);
@@ -82,13 +83,15 @@ angular.module('hotpotApp')
           $window.location.href = '/login';
         }, 100);
       },
+      signup: function(data) {
+        return Restangular.all('users').post(data);
+      },
       getSettings: function() {
         return this.preference.settings;
       },
       saveSettings: function(settings) {
         var me = this;
         var newSettings = {};
-        console.log(me.preference.settings);
         angular.extend(newSettings, me.preference.settings, settings);
         return Restangular.one('preferences', me.preference.id).put({settings: newSettings}).then(function () {
           me.preference.settings = newSettings;

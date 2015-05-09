@@ -11,7 +11,9 @@ angular.module('hotpotApp')
     return {
       templateUrl: 'views/directives/loginform.html',
       restrict: 'E',
-      link: function (scope, attrs) {
+      link: function (scope, element, attrs) {
+        console.log(attrs.redirect);
+        scope.successMsg = attrs.successMsg;
         scope.form = {};
         scope.submit = function() {
           scope.errors = [];

@@ -29,10 +29,6 @@ body > .container {
   height: 100%;
 }
 
-.alert {
-  margin-bottom: 0px;
-}
-
 $my-primary-font-color: #333;
 
 .navbar-default .row > div {
@@ -114,5 +110,56 @@ $my-primary-font-color: #333;
     font-weight: bold;
     text-align: center;
     cursor: move;
+  }
+}
+
+.cropArea {
+  background: #E4E4E4;
+  overflow: hidden;
+  height:300px;
+  text-align: center;
+}
+
+.profile-dialog .hint {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 200px;
+  margin-left: -100px;
+}
+
+.preview {
+  text-align: center;
+  border: 5px dashed #E4E4E4;
+  margin: 0px 5px;
+  height: 300px;
+  color: #E4E4E4;
+
+  .image-wrapper {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: auto;
+  }
+}
+
+.drag-over {
+  border: 5px dashed blue;
+}
+
+.take-pic-dialog {
+  .modal-dialog {
+    width: 352px;
+  }
+}
+
+.webcam {
+  .webcam-loader {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
   }
 }
