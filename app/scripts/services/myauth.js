@@ -14,7 +14,6 @@ angular.module('hotpotApp')
 
     // Public API here
     return {
-
       isAuthenticated: function () {
         if (!this.token && $localStorage.token) {
           this.token = $localStorage.token;
@@ -38,7 +37,7 @@ angular.module('hotpotApp')
               me.user.preference = {
                 settings: {
                   limit: 5,
-                  headers: ['menu', 'name', 'QPISlice', 'kbps', 'Y_psnr', 'U_psnr']
+                  headers: ['QPISlice', 'kbps', 'Y_psnr', 'U_psnr']
                 },
                 user: me.user.id
               };

@@ -9,7 +9,7 @@ angular.module('hotpotApp')
     };
   })
   .controller('SettingsDialogCtrl', function($scope, $modalInstance, $window, myAuth) {
-    var defaultHeaders = ['menu', 'name', 'Y_psnr', 'U_psnr', 'QPISlice', 'kbps', 'test1', 'test2'];
+    var defaultHeaders = ['Y_psnr', 'U_psnr', 'QPISlice', 'kbps', 'test1', 'test2'];
     var settings = myAuth.getSettings();
     $scope.headers = settings.headers.slice();
     $scope.otherHeaders = [];

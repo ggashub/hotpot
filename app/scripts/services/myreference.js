@@ -36,7 +36,7 @@ angular.module('hotpotApp')
           limit = myAuth.getSettings().limit;
         }
 
-        return apiRef.getList({skip: skip, limit: limit}).then(function(refs){
+        return apiRef.getList({skip: skip, limit: limit, sort: 'createdAt'}).then(function(refs){
           angular.forEach(refs, function(r) {
             me.tests[r.id] = r.tests;
             delete r.tests;
@@ -95,16 +95,31 @@ angular.module('hotpotApp')
           }
         }
       },
+      createTest: function(refId) {
+        var me = this;
+        if (me.tests[refId] && me.tests[refId][0]) {
+          var data = me.tests[refId][0];
+          data.referenceId = refId;
+          Restangular.all('tests').post(data);
+        }
+      },
       addTestData: function($data, refId, header) {
         var me = this;
+        var isNew = false;
         if (me.tests[refId]) {
           if (!me.tests[refId][0]) {
-            me.tests[refId][0] = [];
+            me.tests[refId][0] = {};
+            isNew = true;
           }
           if (!me.tests[refId][0][header]) {
             me.tests[refId][0][header] = [];
           }
           me.tests[refId][0][header].push($data);
+          if (isNew) {
+            me.createTest(refId);
+          } else {
+            me.updateTest(refId);
+          }
         }
       },
       removeTestData: function(refId, header, testIndex) {

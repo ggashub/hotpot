@@ -31,7 +31,6 @@ angular.module('hotpotApp')
       };
       $scope.createTestData = function($data, refId, header) {
         myReference.addTestData($data, refId, header);
-        myReference.updateTest(refId);
       };
       $scope.deleteTestData = function(refId, header, testIndex) {
         myReference.removeTestData(refId, header, testIndex);

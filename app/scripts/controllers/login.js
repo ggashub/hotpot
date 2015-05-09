@@ -11,6 +11,6 @@ angular.module('hotpotApp')
   .controller('LoginCtrl', function ($scope, $stateParams) {
     $scope.redirect = $stateParams.redirect;
     if ($stateParams.cfm === 'signup') {
-      $scope.successMsg = 'Congratulations! Please login your account.'
+      $scope.successMsg = 'Congratulations! Please login your account.';
     }
   });
