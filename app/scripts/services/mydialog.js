@@ -26,9 +26,23 @@ angular.module('hotpotApp')
       {id: 10, label: '10'},
       {id: 30, label: '30'}
     ];
+    $scope.startDate = settings.startDate;
+    $scope.endDate = settings.endDate;
     $scope.limit = settings.limit;
+    $scope.toggleStart = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      $scope.startOpened = !$scope.startOpened;
+    };
+    $scope.toggleEnd = function($event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+
+      $scope.endOpened = !$scope.endOpened;
+    };
     $scope.submit = function() {
-      myAuth.saveSettings({limit: $scope.limit, headers: $scope.headers}).then(function(){
+      myAuth.saveSettings({limit: $scope.limit, headers: $scope.headers, startDate: $scope.startDate, endDate: $scope.endDate}).then(function(){
         $window.location.reload();
         $modalInstance.close();
       });

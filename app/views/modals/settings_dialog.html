@@ -7,6 +7,33 @@
             <div ng-repeat="error in errors">{{error}}</div>
         </div>
         <div class="form-group">
+            <label>Created at:</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup ng-model="startDate" is-open="startOpened" max-date="endDate" datepicker-options="dateOptions" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="toggleStart($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup ng-model="endDate" is-open="endOpened" min-date="startDate" datepicker-options="dateOptions" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="toggleEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Number of results per-page:</label>
+            <select class="form-control" ng-options="l.id as l.label for l in limitOptions" ng-model="limit">
+            </select>
+        </div>
+        <div class="form-group">
             <label>Fields:</label>
             <div class="row">
                 <div class="col-md-6">
@@ -21,11 +48,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <label>Number of results per-page:</label>
-            <select class="form-control" ng-options="l.id as l.label for l in limitOptions" ng-model="limit">
-            </select>
-        </div>
+
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary" ng-click="submit()">Save</button>

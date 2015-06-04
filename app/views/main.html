@@ -11,6 +11,7 @@
     <thead>
       <tr>
         <th class="header-menu">Menu</th>
+        <th class="header-name">Created at</th>
         <th class="header-name">Name</th>
         <th ng-repeat="header in headers">{{header | capitalize}}</th>
         <th ng-repeat="header in headers">{{header | capitalize}}(Test)</th>
@@ -22,6 +23,9 @@
           <label>
             <input type="checkbox" ng-model="ref.selected"> {{refIndex+1}}
           </label>
+        </td>
+        <td>
+          {{ref.createdAt}}
         </td>
         <td>
           {{ref.name}}

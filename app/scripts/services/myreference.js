@@ -23,8 +23,9 @@ angular.module('hotpotApp')
     */
 
     return {
-      getReferences: function(limit) {
+      getReferences: function(limit, where) {
         var me = this;
+        var settings = myAuth.getSettings();
         if (!me.tests) {
           me.tests = {};
         }
@@ -33,10 +34,20 @@ angular.module('hotpotApp')
         }
         var skip = me.references.length;
         if (!limit) {
-          limit = myAuth.getSettings().limit;
+          limit = settings.limit;
+        }
+        if (!where) {
+          where = {};
+        }
+        if (!where.startDate && settings.startDate) {
+          where.startDate = settings.startDate;
+        }
+        if (!where.endDate && settings.endDate) {
+          where.endDate = settings.endDate;
         }
 
-        return apiRef.getList({skip: skip, limit: limit, sort: 'createdAt'}).then(function(refs){
+
+        return apiRef.getList({skip: skip, limit: limit, sort: 'createdAt DESC', where: where}).then(function(refs){
           angular.forEach(refs, function(r) {
             me.tests[r.id] = r.tests;
             delete r.tests;
